@@ -34,19 +34,22 @@
     },
     {
       "lean": "lemma succ_add (a b : mynat) : succ a + b = succ (a + b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction b with b1 b2,\nrw add_zero,\nrw add_zero,\nrefl,\nrw add_succ,\nrw add_succ,\nrw b2,\nrefl,"
     },
     {
       "lean": "lemma add_comm (a b : mynat) : a + b = b + a :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction b with b1 b2,\nrw add_zero,\nrw zero_add,\nrefl,\nrw add_succ,\nrw succ_add,\nrw b2,\nrefl,"
     },
     {
       "lean": "theorem succ_eq_add_one (n : mynat) : succ n = n + 1 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw one_eq_succ_zero,\nrw add_succ,\nrw add_zero,\nrefl,"
     },
     {
       "lean": "lemma add_right_comm (a b c : mynat) : a + b + c = a + c + b :=\n",
-      "editorText": "sorry"
+      "editorText": "rw add_assoc,\nrw add_comm b c,\nrw ← add_assoc,\nrefl,"
     },
     {
       "lean": "lemma zero_mul (m : mynat) : 0 * m = 0 :=\n",
