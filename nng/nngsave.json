@@ -98,35 +98,42 @@
     },
     {
       "lean": "lemma zero_pow_zero : (0 : mynat) ^ (0 : mynat) = 1 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rwa pow_zero,"
     },
     {
       "lean": "lemma zero_pow_succ (m : mynat) : (0 : mynat) ^ (succ m) = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw pow_succ,\nrwa mul_zero,"
     },
     {
       "lean": "lemma pow_one (a : mynat) : a ^ (1 : mynat) = a :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw one_eq_succ_zero,\nrw pow_succ,\nrw pow_zero,\nrwa one_mul,"
     },
     {
       "lean": "lemma one_pow (m : mynat) : (1 : mynat) ^ m = 1 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction m with m1 m2,\nrwa pow_zero,\nrw pow_succ,\nrw m2,\nrwa mul_one,"
     },
     {
       "lean": "lemma pow_add (a m n : mynat) : a ^ (m + n) = a ^ m * a ^ n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with n1 n2,\nrw add_zero,\nrw pow_zero,\nrwa mul_one,\nrw add_succ,\nrepeat {rw pow_succ},\nrw n2,\nrwa mul_assoc,"
     },
     {
       "lean": "lemma mul_pow (a b n : mynat) : (a * b) ^ n = a ^ n * b ^ n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with n1 n2,\nrepeat {rw pow_zero},\nrwa mul_one,\nrw pow_succ,\nrw pow_succ,\nrw n2,\nrw mul_assoc (a ^ n1) a (b ^ succ n1),\nrw mul_comm a (b ^ succ n1),\nrw pow_succ,\nrw mul_assoc (b ^ n1) b a,\nrw mul_comm b a,\nrwa mul_assoc,"
     },
     {
       "lean": "lemma pow_pow (a m n : mynat) : (a ^ m) ^ n = a ^ (m * n) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with n1 n2,\nrw mul_zero,\nrepeat {rw pow_zero},\nrw pow_succ,\nrw n2,\nrw mul_succ,\nrwa pow_add,"
     },
     {
       "lean": "lemma add_squared (a b : mynat) :\n  (a + b) ^ (2 : mynat) = a ^ (2 : mynat) + b ^ (2 : mynat) + 2 * a * b :=\n",
-      "editorText": "sorry"
+      "editorText": "induction b with b1 b2,\nrw mul_zero,\nrepeat {rw add_zero},\nrw two_eq_succ_one,\nrw pow_succ,\nrw pow_succ,\nrw mul_zero,\nrw add_zero,\nsorry,"
     },
     {
       "lean": "example (P Q : Type) (p : P) (h : P → Q) : Q :=\n",
