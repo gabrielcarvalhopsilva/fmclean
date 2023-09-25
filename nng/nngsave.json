@@ -199,7 +199,7 @@
     {
       "lean": "lemma maze (P Q R S T U: Prop)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
       "isSolved": true,
-      "editorText": "apply l,\napply j,\napply h,\nexact p,"
+      "editorText": "have q : Q := h(p),\nhave t : T := j(q),\nhave u : U := l(t),\nexact u,"
     },
     {
       "lean": "example (P Q : Prop) : P → (Q → P) :=\n",
@@ -233,6 +233,7 @@
     },
     {
       "lean": "lemma and_symm (P Q : Prop) : P ∧ Q → Q ∧ P :=\n",
+      "isSolved": true,
       "editorText": "intro pq,\ncases pq with p q,\nsplit,\nexact q,\nexact p,"
     },
     {
@@ -242,11 +243,13 @@
     },
     {
       "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
+      "isSolved": true,
       "editorText": "intros iffpq iffqr,\ncases iffpq with pq qp,\ncases iffqr with qr rq,\nsplit,\nintro p,\napply qr,\napply pq,\nexact p,\nintro r,\napply qp,\napply rq,\nexact r,"
     },
     {
       "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
-      "editorText": "intros hpq hqr,\ncases hpq with pq qp,\ncases hqr with qr rq,\nsplit,\nintro p,\napply qr,\napply pq,\nexact p,\nintro r,\napply qp,\napply rq,\nexact r,"
+      "isSolved": true,
+      "editorText": "intros iffpq iffqr,\ncases iffpq with pq qp,\ncases iffqr with qr rq,\nsplit,\nintro p,\napply qr,\napply pq,\nexact p,\nintro r,\napply qp,\napply rq,\nexact r,"
     },
     {
       "lean": "example (P Q : Prop) : Q → (P ∨ Q) :=\n",
@@ -260,6 +263,7 @@
     },
     {
       "lean": "lemma and_or_distrib_left (P Q R : Prop) : P ∧ (Q ∨ R) ↔ (P ∧ Q) ∨ (P ∧ R) :=\n",
+      "isSolved": true,
       "editorText": "split,\nintro h,\ncases h with p qor,\ncases qor with q r,\nleft,\nsplit,\nexact p,\nexact q,\nright,\nsplit,\nexact p,\nexact r,\nintro h,\ncases h with pq pr,\ncases pq with p q,\nsplit,\nexact p,\nleft,\nexact q,\ncases pr with p r,\nsplit,\nexact p,\nright,\nexact r,"
     },
     {
@@ -274,39 +278,47 @@
     },
     {
       "lean": "theorem succ_inj' {a b : mynat} (hs : succ(a) = succ(b)) :  a = b := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "apply succ_inj,\nexact hs,"
     },
     {
       "lean": "theorem succ_succ_inj {a b : mynat} (h : succ(succ(a)) = succ(succ(b))) :  a = b := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "apply succ_inj,\napply succ_inj,\nexact h,"
     },
     {
       "lean": "theorem succ_eq_succ_of_eq {a b : mynat} : a = b → succ(a) = succ(b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\nrwa h,"
     },
     {
       "lean": "theorem succ_eq_succ_iff (a b : mynat) : succ a = succ b ↔ a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\nintro h,\napply succ_inj,\nexact h,\nintro h,\nrwa h,"
     },
     {
       "lean": "theorem add_right_cancel (a t b : mynat) : a + t = b + t → a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\ninduction t with t1 t2,\nrepeat{rw add_zero at h},\nexact h,\nrepeat{rw add_succ at h},\napply t2,\napply succ_inj,\nexact h,"
     },
     {
       "lean": "theorem add_left_cancel (t a b : mynat) : t + a = t + b → a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\ninduction t with t1 t2,\nrepeat {rw zero_add at h},\nexact h,\napply t2,\nrepeat{rw succ_add at h},\napply succ_inj,\nexact h,"
     },
     {
       "lean": "theorem add_right_cancel_iff (t a b : mynat) :  a + t = b + t ↔ a = b :=\n",
-      "editorText": "sorry"
+      "editorText": "split,\nexact add_right_cancel _ _ _,\nintro h,\ninduction t with t1 t2,\nrepeat{rw add_zero},\nexact h,\nrepeat {rw add_succ},\napply succ_eq_succ_of_eq,\nexact t2,"
     },
     {
       "lean": "lemma eq_zero_of_add_right_eq_self {a b : mynat} : a + b = a → b = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\ninduction a with a1 a2,\nrw zero_add at h,\nexact h,\napply a2,\nrw succ_add at h,\napply succ_inj,\nexact h,"
     },
     {
       "lean": "theorem succ_ne_zero (a : mynat) : succ a ≠ 0 := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "symmetry,\nexact zero_ne_succ a,"
     },
     {
       "lean": "lemma add_left_eq_zero {{a b : mynat}} (H : a + b = 0) : b = 0 :=\n",
