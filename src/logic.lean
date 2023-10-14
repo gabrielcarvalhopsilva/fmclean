@@ -458,7 +458,12 @@ variables P Q : U -> Prop
 theorem demorgan_exists :
   ¬(∃x, P x) → (∀x, ¬P x)  :=
 begin
-  sorry,
+  intro h,
+  intro x,
+  intro hp,
+  apply h,
+  existsi x,
+  exact hp,
 end
 
 theorem demorgan_exists_converse :
