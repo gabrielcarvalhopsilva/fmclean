@@ -244,7 +244,25 @@ end
 theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  split,
+  intro nhporq,
+  split,
+  intro hp,
+  apply nhporq,
+  left,
+  exact hp,
+  intro hq,
+  apply nhporq,
+  right,
+  exact hq,
+  intro hnpandnq,
+  cases hnpandnq with hnp hnq,
+  intro hporq,
+  cases hporq with hp hq,
+  apply hnp,
+  exact hp,
+  apply hnq,
+  exact hq,
 end
 
 ------------------------------------------------
