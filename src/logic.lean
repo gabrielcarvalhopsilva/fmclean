@@ -104,7 +104,12 @@ end
 theorem impl_as_contrapositive :
   (P → Q) → (¬Q → ¬P)  :=
 begin
-  sorry,
+  intro hpinpq,
+  intro hnq,
+  intro hp,
+  apply hnq,
+  apply hpinpq,
+  exact hp,
 end
 
 theorem impl_as_contrapositive_converse :
