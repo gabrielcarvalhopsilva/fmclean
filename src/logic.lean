@@ -30,7 +30,16 @@ end
 theorem doubleneg_law :
   ¬¬P ↔ P  :=
 begin
-  sorry,
+  split,
+  intro hp,
+  by_cases h : P,
+  exact h,
+  have hnp := hp h,
+  contradiction,
+  intro hp,
+  intro hnp,
+  have hnnp := hnp hp,
+  exact hnnp,
 end
 
 ------------------------------------------------
