@@ -160,7 +160,14 @@ end
 theorem disj_as_negconj :
   P∨Q → ¬(¬P∧¬Q)  :=
 begin
-  sorry,
+  intro hporq,
+  intro hnpandnq,
+  cases hnpandnq with hnp hnq,
+  cases hporq with hp hq,
+  have boom := hnp hp,
+  contradiction,
+  have boom := hnq hq,
+  contradiction,
 end
 
 theorem conj_as_negdisj :
