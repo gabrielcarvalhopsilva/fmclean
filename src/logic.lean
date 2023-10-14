@@ -23,8 +23,9 @@ begin
   intro hp,
   by_cases h : P,
   exact h,
-  have hnp := hp h,
-  contradiction,
+  have hboom := hp h,
+  exfalso,
+  exact hboom,
 end
 
 theorem doubleneg_law :
@@ -34,8 +35,9 @@ begin
   intro hp,
   by_cases h : P,
   exact h,
-  have hnp := hp h,
-  contradiction,
+  have hboom := hp h,
+  exfalso,
+  exact hboom,
   intro hp,
   intro hnp,
   have hnnp := hnp hp,
@@ -78,8 +80,9 @@ begin
   intro hnporq,
   cases hnporq with hnp hq,
   intro hp,
+  exfalso,
   have hboom := hnp hp,
-  contradiction,
+  exact hboom,
   intro hp,
   exact hq,
 end
@@ -90,9 +93,10 @@ begin
   intro hporq,
   cases hporq with hp hq,
   intro hnp,
-  have boom := hnp hp,
-  contradiction,
-  intro hp,
+  have hboom := hnp hp,
+  exfalso,
+  exact hboom,
+  intro hnp,
   exact hq,
 end
 
@@ -148,8 +152,9 @@ begin
   apply hnp,
   apply h,
   intro hp,
-  have boom := hnp hp,
-  contradiction,
+  have hboom := hnp hp,
+  exfalso,
+  exact hboom,
 end
 
 
@@ -164,10 +169,10 @@ begin
   intro hnpandnq,
   cases hnpandnq with hnp hnq,
   cases hporq with hp hq,
-  have boom := hnp hp,
-  contradiction,
-  have boom := hnq hq,
-  contradiction,
+  apply hnp,
+  exact hp,
+  apply hnq,
+  exact hq,
 end
 
 theorem conj_as_negdisj :
@@ -469,7 +474,11 @@ end
 theorem demorgan_exists_converse :
   (∀x, ¬P x) → ¬(∃x, P x)  :=
 begin
-  sorry,
+  intro h,
+  intro e,
+  cases e with x hx,
+  apply h,
+  exact hx,
 end
 
 theorem demorgan_forall :
