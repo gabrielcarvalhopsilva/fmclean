@@ -567,7 +567,11 @@ end
 theorem exists_as_neg_forall :
   (∃x, P x) → ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  intro h,
+  intro fa,
+  cases h with x hx,
+  apply fa,
+  exact hx,
 end
 
 theorem forall_as_neg_exists :
