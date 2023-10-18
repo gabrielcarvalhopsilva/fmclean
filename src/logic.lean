@@ -538,19 +538,36 @@ end
 theorem demorgan_forall :
   ¬(∀x, P x) → (∃x, ¬P x)  :=
 begin
-  sorry,
+  intro nfa,
+  by_contra,
+  apply nfa,
+  intro x,
+  by_contra h1,
+  apply h,
+  existsi x,
+  exact h1,
 end
 
 theorem demorgan_forall_converse :
   (∃x, ¬P x) → ¬(∀x, P x)  :=
 begin
-  sorry,
+  intro he,
+  intro fa,
+  cases he with x h,
+  have px := fa(x),
+  apply h,
+  exact px,
+
 end
 
 theorem demorgan_forall_law :
   ¬(∀x, P x) ↔ (∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  have h := demorgan_forall U P,
+  exact h,
+  have h := demorgan_forall_converse U P,
+  exact h,
 end
 
 theorem demorgan_exists_law :
@@ -593,13 +610,24 @@ end
 theorem exists_as_neg_forall_converse :
   ¬(∀x, ¬P x) → (∃x, P x)  :=
 begin
-  sorry,
+  intro nfa,
+  by_contra,
+  apply nfa,
+  intro x,
+  intro px,
+  apply h,
+  existsi x,
+  exact px,
 end
 
 theorem forall_as_neg_exists_law :
   (∀x, P x) ↔ ¬(∃x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  have h := forall_as_neg_exists U P,
+  exact h,
+  have h := forall_as_neg_exists_converse U P,
+  exact h,
 end
 
 theorem exists_as_neg_forall_law :
