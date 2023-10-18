@@ -13,35 +13,25 @@ theorem doubleneg_intro :
 begin
   intro hp,
   intro hnp,
-  have hnnp := hnp hp,
-  exact hnnp,
+  exact hnp hp,
 end
 
 theorem doubleneg_elim :
   ¬¬P → P  :=
 begin
   intro hp,
-  by_cases h : P,
-  exact h,
-  have hboom := hp h,
-  exfalso,
-  exact hboom,
+  by_contra,
+  exact hp h,
 end
 
 theorem doubleneg_law :
   ¬¬P ↔ P  :=
 begin
   split,
-  intro hp,
-  by_cases h : P,
+  have h := doubleneg_elim P,
   exact h,
-  have hboom := hp h,
-  exfalso,
-  exact hboom,
-  intro hp,
-  intro hnp,
-  have hnnp := hnp hp,
-  exact hnnp,
+  have h := doubleneg_intro P,
+  exact h,
 end
 
 ------------------------------------------------
@@ -133,20 +123,10 @@ theorem contrapositive_law :
   (P → Q) ↔ (¬Q → ¬P)  :=
 begin
   split,
-  intro hpimpq,
-  intro hnq,
-  intro hp,
-  have hq := hpimpq hp,
-  have hboom := hnq hq,
-  exact hboom,
-  intro hnqimpnp,
-  intro hp,
-  by_cases h : Q,
+  have h := impl_as_contrapositive P Q,
   exact h,
-  have hnp := hnqimpnp h,
-  have hboom := hnp hp,
-  exfalso,
-  exact hboom,
+  have h := impl_as_contrapositive_converse P Q,
+  exact h,
 end
 
 
@@ -157,11 +137,11 @@ end
 theorem lem_irrefutable :
   ¬¬(P∨¬P)  :=
 begin
-  intro hnpornp,
-  apply hnpornp,
+  intro h,
+  apply h,
   right,
   intro hp,
-  apply hnpornp,
+  apply h,
   left,
   exact hp,
 end
@@ -280,48 +260,20 @@ theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
   split,
-  intro nhpandq,
-  by_cases hp : P,
-  left,
-  intro hq,
-  apply nhpandq,
-  split,
-  exact hp,
-  exact hq,
-  right,
-  exact hp,
-  intro hnqornp,
-  intro hpandq,
-  cases hpandq with hp hq,
-  cases hnqornp with hnq hnp,
-  apply hnq,
-  exact hq,
-  apply hnp,
-  exact hp,
+  have h := demorgan_conj P Q,
+  exact h,
+  have h := demorgan_conj_converse P Q,
+  exact h,
 end
 
 theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
   split,
-  intro nhporq,
-  split,
-  intro hp,
-  apply nhporq,
-  left,
-  exact hp,
-  intro hq,
-  apply nhporq,
-  right,
-  exact hq,
-  intro hnpandnq,
-  cases hnpandnq with hnp hnq,
-  intro hporq,
-  cases hporq with hp hq,
-  apply hnp,
-  exact hp,
-  apply hnq,
-  exact hq,
+  have h := demorgan_disj P Q,
+  exact h,
+  have h := demorgan_disj_converse P Q,
+  exact h,
 end
 
 ------------------------------------------------
@@ -476,13 +428,12 @@ theorem conj_idempot :
   (P∧P) ↔ P :=
 begin
   split,
-  intro hpandp,
-  cases hpandp with hp hp,
-  exact hp,
-  intro hp,
+  have h := weaken_conj_right P P,
+  exact h,
+  intro p,
   split,
-  exact hp,
-  exact hp,
+  exact p,
+  exact p,
 end
 
 theorem disj_idempot :
@@ -529,10 +480,10 @@ theorem demorgan_exists_converse :
   (∀x, ¬P x) → ¬(∃x, P x)  :=
 begin
   intro h,
-  intro e,
-  cases e with x hx,
+  intro he,
+  cases he with x hnp,
   apply h,
-  exact hx,
+  exact hnp,
 end
 
 theorem demorgan_forall :
@@ -552,11 +503,11 @@ theorem demorgan_forall_converse :
   (∃x, ¬P x) → ¬(∀x, P x)  :=
 begin
   intro he,
-  intro fa,
-  cases he with x h,
-  have px := fa(x),
-  apply h,
-  exact px,
+  intro hfa,
+  cases he with x hnp,
+  have hp := hfa(x),
+  apply hnp,
+  exact hp,
 
 end
 
@@ -589,20 +540,20 @@ theorem exists_as_neg_forall :
   (∃x, P x) → ¬(∀x, ¬P x)  :=
 begin
   intro h,
-  intro fa,
-  cases h with x hx,
-  apply fa,
-  exact hx,
+  intro hfa,
+  cases h with x hp,
+  apply hfa,
+  exact hp,
 end
 
 theorem forall_as_neg_exists :
   (∀x, P x) → ¬(∃x, ¬P x)  :=
 begin
-  intro h,
-  intro e,
-  cases e with x hx,
-  apply hx,
-  apply h,
+  intro hfa,
+  intro he,
+  cases he with x hnp,
+  apply hnp,
+  apply hfa,
 end
 
 theorem forall_as_neg_exists_converse :
