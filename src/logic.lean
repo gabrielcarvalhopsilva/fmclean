@@ -642,7 +642,11 @@ end
 theorem exists_as_neg_forall_law :
   (∃x, P x) ↔ ¬(∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  have h := exists_as_neg_forall U P,
+  exact h,
+  have h := exists_as_neg_forall_converse U P,
+  exact h,
 end
 
 
