@@ -728,7 +728,15 @@ end
 theorem forall_disj_as_disj_forall_converse :
   (∀x, P x) ∨ (∀x, Q x) → (∀x, P x ∨ Q x)  :=
 begin
-  sorry,
+  intro h,
+  intro x,
+  cases h with hfap hfaq,
+  have hp := hfap x,
+  left,
+  exact hp,
+  have hq := hfaq x,
+  right,
+  exact hq,
 end
 
 
